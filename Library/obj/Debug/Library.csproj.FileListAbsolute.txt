@@ -1,0 +1,6 @@
+D:\Serg\A-Level\7\Library\Library01\Library\bin\Debug\Library.exe.config
+D:\Serg\A-Level\7\Library\Library01\Library\bin\Debug\Library.exe
+D:\Serg\A-Level\7\Library\Library01\Library\bin\Debug\Library.pdb
+D:\Serg\A-Level\7\Library\Library01\Library\obj\Debug\Library.csprojResolveAssemblyReference.cache
+D:\Serg\A-Level\7\Library\Library01\Library\obj\Debug\Library.exe
+D:\Serg\A-Level\7\Library\Library01\Library\obj\Debug\Library.pdb
