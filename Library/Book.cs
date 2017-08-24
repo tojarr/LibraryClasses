@@ -13,9 +13,16 @@ namespace Library
         public string authorbook;
         public string takebook;
 
-        public void PrintBook()
+        public void PrintBook(bool usadmin)
         {
-            Console.WriteLine("id:{0}, Name:{1}, Autor:{2}, Takebook:{3}\n", idbook, namebook, authorbook, takebook);
+            if(usadmin == true)
+            {
+                Console.WriteLine("id:{0}, Name:{1}, Autor:{2}, Takebook:{3}\n", idbook, namebook, authorbook, takebook);
+            }
+            else
+            {
+                Console.WriteLine("id:{0}, Name:{1}, Autor:{2}\n", idbook, namebook, authorbook);
+            }
         }
     }
 }

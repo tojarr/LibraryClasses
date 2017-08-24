@@ -28,12 +28,12 @@ namespace Library
                 {
                     continue;
                 }
-                libsh[i].PrintBook();
+                libsh[i].PrintBook(usadmin);
             }
             Console.WriteLine(new string ('_', 80));
         }
         // Print list of take
-        public void ListTake()
+        public void ListTake(bool usadmin)
         {
             for (int i = 0; i < libsh.Length; i++)
             {
@@ -41,7 +41,7 @@ namespace Library
                 {
                     continue;
                 }
-                libsh[i].PrintBook();
+                libsh[i].PrintBook(usadmin);
             }
             Console.WriteLine(new string('_', 80));
         }

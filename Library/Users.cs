@@ -40,7 +40,7 @@ namespace Library
                     "2 - Add book.\n" +
                     "3 - Delete book.\n" +
                     "4 - List of books taken.\n" +
-                    "5 - Add user.\n" +
+                    "5 - Make the user admin/not admin.\n" +
                     "6 - Quit to main menu.\n");
                 Console.CursorVisible = false;
                 ConsoleKey key = Console.ReadKey(true).Key;
@@ -77,20 +77,72 @@ namespace Library
                 {
                     Console.Clear();
                     Console.WriteLine("--- LIST OF BOOKS TAKEN ---\n");
-                    libshelf.ListTake();
+                    libshelf.ListTake(users[indus].isadmin);
                     Console.WriteLine("\nPress any key to quit.");
                     Console.ReadKey();
                 }
-                // Goto Add user
+                //Goto make the user admin/not admin
                 else if (key == ConsoleKey.D5)
                 {
-                    
+                    Console.Clear();
+                    Console.WriteLine("--- MAKE THE ADMIN/USER STATUS ---\n");
+                    AdminNotadmin();
+                    Console.WriteLine("\nPress any key to quit.");
+                    Console.ReadKey();
                 }
                 // Goto Quit to main menu
                 else if (key == ConsoleKey.D6)
                 {
                     Console.Clear();
                     break;
+                }
+            }
+        }
+        // Add users
+        public void AddUsers()
+        {
+            User[] usersnew = new User[users.Length + 1];
+            for (int i = 0; i < users.Length; i++)
+            {
+                usersnew[i] = users[i];
+            }
+            usersnew[usersnew.Length - 1] = new User() { isadmin = false };
+            Console.Write("\nEnter login:");
+            usersnew[usersnew.Length - 1].name = Console.ReadLine();
+            Console.Write("\nEnter password:");
+            usersnew[usersnew.Length - 1].pass = Console.ReadLine();
+            users = usersnew;
+            Console.WriteLine(new string ('-', 80));
+            Console.WriteLine("\nUser is created.");
+        }
+        // Make the user admin/not admin
+        public void AdminNotadmin()
+        {
+            Console.Write("Enter login:");
+            string login = Console.ReadLine();
+            for (int i = 0; i < users.Length; i++)
+            {
+                if(login == users[i].name)
+                {
+                    Console.WriteLine("\n1 - make the admin status.\n2 - make the user status.\n3 - quit/");
+                    while (true)
+                    {
+                        Console.CursorVisible = false;
+                        ConsoleKey key = Console.ReadKey(true).Key;
+                        Console.CursorVisible = true;
+                        if (key == ConsoleKey.D1)
+                        {
+                            users[i].isadmin = true;
+                        }
+                        else if (key == ConsoleKey.D2)
+                        {
+                            users[i].isadmin = false;
+                        }
+                        else if (key == ConsoleKey.D3)
+                        {
+                            break;
+                        }
+                    }
                 }
             }
         }

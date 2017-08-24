@@ -26,8 +26,9 @@ namespace Library
                 bool incnum = false;
                 Console.Clear();
                 Console.WriteLine("--- MAIN MENU ---\n\n" +
-                    "Enter 1 for login.\n" +
-                    "Enter 2 for quit.\n");
+                    "1 - Log in.\n" +
+                    "2 - Register.\n" +
+                    "3 - Quit.\n");
                 Console.CursorVisible = false;
                 ConsoleKey key = Console.ReadKey(true).Key;
                 Console.CursorVisible = true;
@@ -58,6 +59,14 @@ namespace Library
                     }
                 }
                 else if (key == ConsoleKey.D2)
+                {
+                    Console.Clear();
+                    Console.WriteLine("--- REGISTRATION MENU ---");
+                    usersarr.AddUsers();
+                    Console.WriteLine("\nPress any key to quit.");
+                    Console.ReadKey();
+                }
+                else if (key == ConsoleKey.D3)
                 {
                     break;
                 }
