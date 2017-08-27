@@ -9,7 +9,7 @@ namespace Library
     class Users
     {
         public User[] users;
-
+        //Construktor
         public Users()
         {
             users = new User[2];
@@ -18,7 +18,7 @@ namespace Library
             users[0] = user1;
             users[1] = user2;
         }
-
+        //Print list users
         public void PrintUsers()
         {
             for (int i = 0; i < users.Length; i++)
@@ -27,7 +27,35 @@ namespace Library
             }
             Console.ReadKey();
         }
-
+        // Enter login pass method
+        public void LogPass(LibShelf libshelf)
+        {
+            bool incnum = false;
+            string login, pass;
+            Console.Write("Enter login:");
+            login = Console.ReadLine();
+            Console.Write("\nEnter password:");
+            pass = Console.ReadLine();
+            for (int i = 0; i < users.Length; i++)
+            {
+                if (login == users[i].name && pass == users[i].pass && users[i].isadmin)
+                {
+                    AdminMenu(libshelf, i);
+                    incnum = true;
+                    break;
+                }
+                else if (login == users[i].name && pass == users[i].pass && !users[i].isadmin)
+                {
+                    UserMet(libshelf, i);
+                    incnum = true;
+                    break;
+                }
+            }
+            if (incnum != true)
+            {
+                Program.IncNum();
+            }
+        }
         //Method admin menu
         public void AdminMenu(LibShelf libshelf, int indus)
         {
@@ -40,8 +68,9 @@ namespace Library
                     "2 - Add book.\n" +
                     "3 - Delete book.\n" +
                     "4 - List of books taken.\n" +
-                    "5 - Make the user admin/not admin.\n" +
-                    "6 - Quit to main menu.\n");
+                    "5 - List of user history.\n" +
+                    "6 - Make the user admin/not admin.\n" +
+                    "7 - Quit to main menu.\n");
                 Console.CursorVisible = false;
                 ConsoleKey key = Console.ReadKey(true).Key;
                 Console.CursorVisible = true;
@@ -69,8 +98,6 @@ namespace Library
                     Console.Clear();
                     Console.WriteLine("--- DELETE BOOKS ---\n");
                     libshelf.DelBooks(users[indus].isadmin);
-                    //Console.WriteLine("\nPress any key to quit.");
-                    //Console.ReadKey();
                 }
                 // List of books taken
                 else if (key == ConsoleKey.D4)
@@ -81,8 +108,42 @@ namespace Library
                     Console.WriteLine("\nPress any key to quit.");
                     Console.ReadKey();
                 }
-                //Goto make the user admin/not admin
+                // List of user history
                 else if (key == ConsoleKey.D5)
+                {
+                    while (true)
+                    {
+                        bool choice = false;
+                        Console.Clear();
+                        Console.WriteLine("--- LIST OF USER HISTORY ---\n");
+                        Console.Write("Enter name user:");
+                        string nameus = Console.ReadLine();
+                        for (int i = 0; i < users.Length; i++)
+                        {
+                            if (nameus == users[i].name)
+                            {
+                                Console.Clear();
+                                Console.WriteLine("--- LIST OF USER HISTORY ---\n");
+                                Console.WriteLine("Name:{0}", users[i].name);
+                                users[i].PrintUserHis();
+                                choice = true;
+                                break;
+                            }
+                        }
+                        if (choice == true)
+                        {
+                            Console.WriteLine("\nPress any key to quit.");
+                            Console.ReadKey();
+                            break;
+                        }
+                        else
+                        {
+                            Program.IncNum();
+                        }
+                    }
+                }
+                //Goto make the user admin/not admin
+                else if (key == ConsoleKey.D6)
                 {
                     Console.Clear();
                     Console.WriteLine("--- MAKE THE ADMIN/USER STATUS ---\n");
@@ -91,7 +152,7 @@ namespace Library
                     Console.ReadKey();
                 }
                 // Goto Quit to main menu
-                else if (key == ConsoleKey.D6)
+                else if (key == ConsoleKey.D7)
                 {
                     Console.Clear();
                     break;
@@ -101,6 +162,8 @@ namespace Library
         // Add users
         public void AddUsers()
         {
+            Console.Clear();
+            Console.WriteLine("--- REGISTRATION MENU ---");
             User[] usersnew = new User[users.Length + 1];
             for (int i = 0; i < users.Length; i++)
             {
@@ -114,8 +177,10 @@ namespace Library
             users = usersnew;
             Console.WriteLine(new string ('-', 80));
             Console.WriteLine("\nUser is created.");
+            Console.WriteLine("\nPress any key to quit.");
+            Console.ReadKey();
         }
-        // Make the user admin/not admin
+        // Make the user admin/not admin status
         public void AdminNotadmin()
         {
             Console.Write("Enter login:");
@@ -155,7 +220,7 @@ namespace Library
                 Console.Clear();
                 Console.WriteLine("--- USER MENU ---\n\n" +
                     "1 - List of book.\n" +
-                    "2 - Put the book.\n" +
+                    "2 - Return the book.\n" +
                     "3 - Take off book.\n" +
                     "4 - Quit to main menu.\n");
                 Console.CursorVisible = false;
@@ -170,20 +235,20 @@ namespace Library
                     Console.WriteLine("\nPress any key to quit.");
                     Console.ReadKey();
                 }
-                // Goto put the book
+                // Goto return the book
                 if (key == ConsoleKey.D2)
                 {
                     Console.Clear();
-                    Console.WriteLine("--- MENU PUT BOOKS ---\n");
+                    Console.WriteLine("--- MENU RETURN BOOKS ---\n");
                     users[indus].ListBooksUser();
-                    int idbook = users[indus].PutBook();
+                    int idbook = users[indus].ReturnBook();
                     if(idbook == -1)
                     {
                         Program.IncNum();
                     }
                     else
                     {
-                        libshelf.PutBooks(idbook);
+                        libshelf.ReturnBooks(idbook);
                         Console.WriteLine("\nBook is returned.\n\nPress any key to quit.");
                         Console.ReadKey();
                     }

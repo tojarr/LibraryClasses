@@ -9,8 +9,9 @@ namespace Library
     class LibShelf
     {
         public Book[] libsh;
+        // Counter id books
         int counterId = 3;
-
+        // Construktor
         public LibShelf()
         {
             libsh = new Book[2];
@@ -78,7 +79,7 @@ namespace Library
             }
         }
         // Put of books
-        public void PutBooks(int idbook)
+        public void ReturnBooks(int idbook)
         {
             for (int i = 0; i < libsh.Length; i++)
             {
